@@ -1,12 +1,14 @@
 
 import pygame
 from collections import deque
+import heapq
 
 # constants
 WIDTH = 500
 HEIGHT = 500
 CELL_DIM = 50
 BACKGROUND = (0, 0, 0)
+FRAME = 5
 
 # variables
 running = True
@@ -18,10 +20,18 @@ col = [1, 0, -1, 0]
 
 # queue
 q = deque()
+stack = []
 start = (2, 2)
 q.append([start])
+stack.append(start)
 final = (9, 9)
-
+visited.append(start)
+pq = []
+heapq.heappush(pq, (0, 0, start))
+count = 0
+n_count = 0
+pq_dict = {start: 0}
+prev = {}
 
 def set_window(window, obstacles):
     # set obstacles

@@ -1,89 +1,224 @@
-import pygame.display
 
 # importing modules
 from data import *
-from window import dialogue_window
+from window import DialogueWindow
+from collections import deque
+import heapq
 
 # start game
 pygame.init()
 
-# create clock
-clock = pygame.time.Clock()
-
 # create window
-window = pygame.display.set_mode((WIDTH, HEIGHT))
-window.fill(BACKGROUND)
-pygame.display.set_caption('My game')
+game_window = pygame.display.set_mode((WIDTH, WIDTH))
+game_window.fill(BACKGROUND)
+pygame.display.set_caption('Path Algorithms')
 
 # setting the window
-set_window(window, grids)
-# dialogue_window(run)
-endpoints(window)
+set_game_window(game_window)
+dialog = DialogueWindow()
+start, final = dialog.get_endpoints()
+obstacles.append(start)
+endpoints(game_window, start, final)
 
 # game loop
 while running:
+    # events
     for event in pygame.event.get():
+
         # close button
         if event.type == pygame.QUIT:
             running = False
+
+        # mouse click
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                clicked_pos = get_position(event.pos)
+
+                # adding obstacles
+                if clicked_pos not in obstacles:
+                    obstacles.append(clicked_pos)
+                    rect = pygame.Rect((clicked_pos[0] - 1) * CELL_DIM + 2, (clicked_pos[1] - 1) * CELL_DIM + 2, CELL_DIM - 2,
+                                       CELL_DIM - 2)
+                    pygame.draw.rect(game_window, 'white', rect)
+
+                # removing obstacles
+                else:
+                    obstacles.remove(clicked_pos)
+                    rect = pygame.Rect((clicked_pos[0] - 1) * CELL_DIM + 2, (clicked_pos[1] - 1) * CELL_DIM + 2,
+                                       CELL_DIM - 2,
+                                       CELL_DIM - 2)
+                    pygame.draw.rect(game_window, BACKGROUND, rect)
+
         # enter key
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 found = False
 
-                # start algorithm
-                while not found:
+                # breadth first search
+                if algo_type == 'bfs':
+                    # initialisation
+                    q = deque()
+                    q.append([start])
+                    colored = []
 
-                    path = heapq.heappop(pq)[2]
-                    print(path)
+                    while not found:
+                        new_colored = []
+                        path = q.popleft()
+                        cur_pos = path[-1]
+                        print(cur_pos)
 
-                    path_found = False
-                    for z in range(4):
-                        new_pos = (path[0] + row[z],
-                                   path[1] + col[z])
+                        # de-color visited cells
+                        for cells in colored:
+                            rect = pygame.Rect((cells[0] - 1) * 50 + 2, (cells[1] - 1) * 50 + 2, 48, 48)
+                            pygame.draw.rect(game_window, 'grey', rect)
 
-                        if new_pos in visited or new_pos in grids:
-                            continue
-                        elif new_pos[0] > 10 or new_pos[0] < 1 or new_pos[1] > 10 or new_pos[1] < 1:
-                            continue
+                        for z in range(4):
+                            new_pos = (cur_pos[0] + row[z],
+                                       cur_pos[1] + col[z])
 
-                        # checking for end
-                        if new_pos == final:
-                            found = True
-                            path_found = True
-                            print('found')
-                            break
-                        else:
-                            # calculating parameters
-                            g = pq_dict[path] + 1
-                            f = abs(final[0] - new_pos[0]) + abs(final[1] - new_pos[1])
-                            pq_dict[new_pos] = g
-                            count += 1
-                            n_count -= 1
-                            print(f"{new_pos} : {f+g}")
+                            if new_pos in visited or new_pos in obstacles:
+                                continue
+                            elif new_pos[0] > 10 or new_pos[0] < 1 or new_pos[1] > 10 or new_pos[1] < 1:
+                                continue
 
-                            # adding the new cell to the path
-                            heapq.heappush(pq, (f+g, n_count, new_pos))
-                            visited.append(new_pos)
-                            prev[new_pos] = path
+                            # checking for end
+                            if new_pos == final:
+                                found = True
+                                break
+                            else:
+                                # adding the new cell to the path
+                                new_path = path.copy()
+                                new_path.append(new_pos)
+                                q.append(new_path)
+                                visited.append(new_pos)
 
-                            # color current cell
-                            rect = pygame.Rect((new_pos[0] - 1) * 50 + 2, (new_pos[1] - 1) * 50 + 2, 48, 48)
-                            pygame.draw.rect(window, 'blue', rect)
+                                # color current cell
+                                rect = pygame.Rect((new_pos[0] - 1) * 50 + 2, (new_pos[1] - 1) * 50 + 2, 48, 48)
+                                pygame.draw.rect(game_window, 'blue', rect)
+                                new_colored.append(new_pos)
 
-                    # if not path_found:
-                    #     removed_pos = stack.pop()
-                    #     rect = pygame.Rect((removed_pos[0] - 1) * 50 + 2, (removed_pos[1] - 1) * 50 + 2, 48, 48)
-                    #     pygame.draw.rect(window, 'grey', rect)
+                        colored = new_colored.copy()
 
-                    pygame.display.update()
-                    clock.tick(FRAME)
+                        pygame.display.update()
+                        clock.tick(FRAME)
 
-            for cell in stack[1:]:
-                rect = pygame.Rect((cell[0] - 1) * 50 + 2, (cell[1] - 1) * 50 + 2, 48, 48)
-                pygame.draw.rect(window, 'yellow', rect)
-                pygame.display.update()
-                clock.tick(FRAME)
+                    # bfs path
+                    if found:
+                        for cell in path[1:]:
+                            rect = pygame.Rect((cell[0] - 1) * 50 + 2, (cell[1] - 1) * 50 + 2, 48, 48)
+                            pygame.draw.rect(game_window, 'yellow', rect)
+                            pygame.display.update()
+                            clock.tick(FRAME)
+
+                            # depth first search
+                elif algo_type == 'dfs':
+                    # initialisation
+                    stack = [start]
+
+                    while not found:
+                        path = stack[-1]
+                        path_found = False
+
+                        for z in range(4):
+                            new_pos = (path[0] + row[z],
+                                       path[1] + col[z])
+
+                            if new_pos in visited or new_pos in obstacles:
+                                continue
+                            elif new_pos[0] > 10 or new_pos[0] < 1 or new_pos[1] > 10 or new_pos[1] < 1:
+                                continue
+
+                            # checking for end
+                            if new_pos == final:
+                                found = True
+                                path_found = True
+                                break
+                            else:
+                                # adding the new cell to the path
+                                stack.append(new_pos)
+                                visited.append(new_pos)
+
+                                # color current cell
+                                rect = pygame.Rect((new_pos[0] - 1) * 50 + 2, (new_pos[1] - 1) * 50 + 2, 48, 48)
+                                pygame.draw.rect(game_window, 'blue', rect)
+                                path_found = True
+                                break
+
+                        if not path_found:
+                            removed_pos = stack.pop()
+                            rect = pygame.Rect((removed_pos[0] - 1) * 50 + 2, (removed_pos[1] - 1) * 50 + 2, 48,
+                                               48)
+                            pygame.draw.rect(game_window, 'grey', rect)
+
+                        pygame.display.update()
+                        clock.tick(FRAME)
+
+                    if found:
+                        for cell in stack[1:]:
+                            rect = pygame.Rect((cell[0] - 1) * 50 + 2, (cell[1] - 1) * 50 + 2, 48, 48)
+                            pygame.draw.rect(game_window, 'yellow', rect)
+                            pygame.display.update()
+                            clock.tick(FRAME)
+
+                # a* algorithm
+                else:
+                    # initialisation
+                    pq = []
+                    heapq.heappush(pq, (0, 0, start))
+
+                    pq_dict = {start: 0}
+                    prev = {}
+                    count = 0
+
+                    while not found:
+                        path = heapq.heappop(pq)[2]
+                        path_found = False
+
+                        for z in range(4):
+                            new_pos = (path[0] + row[z],
+                                       path[1] + col[z])
+
+                            if new_pos in visited or new_pos in obstacles:
+                                continue
+                            elif new_pos[0] > 10 or new_pos[0] < 1 or new_pos[1] > 10 or new_pos[1] < 1:
+                                continue
+
+                            # checking for end
+                            if new_pos == final:
+                                found = True
+                                rect = pygame.Rect((path[0] - 1) * 50 + 2, (path[1] - 1) * 50 + 2, 48, 48)
+                                pygame.draw.rect(game_window, 'grey', rect)
+                                break
+                            else:
+                                # calculating parameters
+                                g = pq_dict[path] + 1
+                                f = abs(final[0] - new_pos[0]) + abs(final[1] - new_pos[1])
+                                pq_dict[new_pos] = g
+                                count += 1
+
+                                # adding the new cell to the path
+                                heapq.heappush(pq, (f + g, -1 * count, new_pos))
+                                visited.append(new_pos)
+                                prev[new_pos] = path
+
+                                # color current cell
+                                rect = pygame.Rect((new_pos[0] - 1) * 50 + 2, (new_pos[1] - 1) * 50 + 2, 48, 48)
+                                pygame.draw.rect(game_window, 'blue', rect)
+
+                                pygame.display.update()
+                                clock.tick(FRAME)
+
+                                # de-color visited cell
+                                if path != start:
+                                    rect = pygame.Rect((path[0] - 1) * 50 + 2, (path[1] - 1) * 50 + 2, 48, 48)
+                                    pygame.draw.rect(game_window, 'grey', rect)
+
+                        if found:
+                            cell = path
+                            while cell != start:
+                                rect = pygame.Rect((cell[0] - 1) * 50 + 2, (cell[1] - 1) * 50 + 2, 48, 48)
+                                pygame.draw.rect(game_window, 'yellow', rect)
+                                cell = prev[cell]
 
     pygame.display.update()
 

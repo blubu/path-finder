@@ -9,6 +9,7 @@ class DialogueWindow:
     def __init__(self):
         self.start = ''
         self.finish = ''
+        self.algo = ''
 
         self.app = QApplication([])
         self.window = QMainWindow()
@@ -25,8 +26,8 @@ class DialogueWindow:
 
         # algorithm
         self.label3 = QLabel('Algorithm: ', self.window)
-        self.dropdown = QComboBox(self.window)
         self.label4 = QLabel('*35 x 35 grid', self.window)
+        self.dropdown = QComboBox(self.window)
 
         # run button
         self.push = QPushButton('Run', self.window)
@@ -74,10 +75,18 @@ class DialogueWindow:
     def set_endpoints(self):
         self.start = (int(self.textbox1.text()), int(self.textbox2.text()))
         self.finish = (int(self.textbox3.text()), int(self.textbox4.text()))
+
+        if self.dropdown.currentIndex() == 0:
+            self.algo = 'wfs'
+        elif self.dropdown.currentIndex() == 1:
+            self.algo = 'dfs'
+        else:
+            self.algo = 'a*'
+
         self.window.close()
 
     def get_endpoints(self):
-        return self.start, self.finish
+        return self.start, self.finish, self.algo
 
 
 

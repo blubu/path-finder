@@ -1,6 +1,6 @@
 
+import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QCoreApplication
 
 
 # window function
@@ -10,23 +10,24 @@ class DialogueWindow:
         self.start = ''
         self.finish = ''
         self.algo = ''
+        self.label = ''
 
         self.app = QApplication([])
         self.window = QMainWindow()
 
-        # first label
-        self.label1 = QLabel('Start Point: ', self.window)
-        self.textbox1 = QLineEdit(self.window)
-        self.textbox2 = QLineEdit(self.window)
+        # start label
+        self.start_label = QLabel('Start Point: ', self.window)
+        self.start_x = QLineEdit(self.window)
+        self.start_y = QLineEdit(self.window)
 
-        # second label
-        self.label2 = QLabel('Finish Point: ', self.window)
-        self.textbox3 = QLineEdit(self.window)
-        self.textbox4 = QLineEdit(self.window)
+        # final label
+        self.finish_label = QLabel('Finish Point: ', self.window)
+        self.finish_x = QLineEdit(self.window)
+        self.finish_y = QLineEdit(self.window)
 
-        # algorithm
-        self.label3 = QLabel('Algorithm: ', self.window)
-        self.label4 = QLabel('*35 x 35 grid', self.window)
+        # algorithm dropdown
+        self.algo_label = QLabel('Algorithm: ', self.window)
+        self.grid_label = QLabel('*35 x 35 grid', self.window)
         self.dropdown = QComboBox(self.window)
 
         # run button
@@ -42,58 +43,80 @@ class DialogueWindow:
         self.push.clicked.connect(self.set_endpoints)
 
         # app loop
-        self.app_exit = self.app.exec()
+        self.app.exec()
 
+    # layout of widgets
     def set_widgets(self):
         self.window.setGeometry(500, 300, 300, 200)
         self.window.setFixedSize(300, 200)
 
-        self.label1.setGeometry(25, 25, 75, 30)
-        self.label1.setStyleSheet("font-weight:bold")
-        self.label2.setGeometry(25, 65, 75, 30)
-        self.label2.setStyleSheet("font-weight:bold")
-        self.label3.setGeometry(25, 105, 75, 30)
-        self.label3.setStyleSheet("font-weight:bold")
-        self.label4.setGeometry(25, 145, 80, 30)
+        self.start_label.setGeometry(25, 25, 75, 30)
+        self.start_label.setStyleSheet("font-weight:bold")
 
-        self.textbox1.setPlaceholderText("x1")
-        self.textbox1.setGeometry(125, 25, 50, 30)
-        self.textbox2.setPlaceholderText("y1")
-        self.textbox2.setGeometry(200, 25, 50, 30)
-        self.textbox3.setPlaceholderText("x2")
-        self.textbox3.setGeometry(125, 65, 50, 30)
-        self.textbox4.setPlaceholderText("y2")
-        self.textbox4.setGeometry(200, 65, 50, 30)
+        self.finish_label.setGeometry(25, 65, 75, 30)
+        self.finish_label.setStyleSheet("font-weight:bold")
+
+        self.algo_label.setGeometry(25, 105, 75, 30)
+        self.algo_label.setStyleSheet("font-weight:bold")
+
+        self.grid_label.setGeometry(25, 145, 80, 30)
+
+        self.start_x.setPlaceholderText("x1")
+        self.start_x.setGeometry(125, 25, 50, 30)
+
+        self.start_y.setPlaceholderText("y1")
+        self.start_y.setGeometry(200, 25, 50, 30)
+
+        self.finish_x.setPlaceholderText("x2")
+        self.finish_x.setGeometry(125, 65, 50, 30)
+
+        self.finish_y.setPlaceholderText("y2")
+        self.finish_y.setGeometry(200, 65, 50, 30)
 
         self.dropdown.setGeometry(125, 105, 125, 30)
         self.dropdown.addItem('Width First Search')
         self.dropdown.addItem('Depth First Search')
-        self.dropdown.addItem('A* Algorithm')
+        self.dropdown.addItem('A* Search')
 
         self.push.setGeometry(180, 145, 70, 30)
 
+    # run function
     def set_endpoints(self):
-        self.start = (int(self.textbox1.text()), int(self.textbox2.text()))
-        self.finish = (int(self.textbox3.text()), int(self.textbox4.text()))
+
+        self.start = (self.start_x.text(), self.start_y.text())
+        self.finish = (self.finish_x.text(), self.finish_y.text())
+
+        if self.start[0] == '' or self.start[1] == '':
+            self.start_label.setStyleSheet('color: red;font-weight: bold')
+            self.start = (0, 0)
+        if self.finish[0] == '' or self.finish[1] == '':
+            self.finish_label.setStyleSheet('color: red;font-weight: bold')
+            self.finish = (0, 0)
+
+        if self.start != (0, 0) or self.finish != (0, 0):
+            self.start = (int(self.start[0]), int(self.start[1]))
+            self.finish = (int(self.finish[0]), int(self.finish[1]))
 
         if self.dropdown.currentIndex() == 0:
-            self.algo = 'wfs'
+            self.algo = 'bfs'
         elif self.dropdown.currentIndex() == 1:
             self.algo = 'dfs'
         else:
             self.algo = 'a*'
 
-        self.window.close()
+        if self.start[0] > 35 or self.start[0] < 1 or self.start[1] > 35 or self.start[1] < 1 or self.finish[0] > 35 \
+                or self.finish[0] < 1 or self.finish[1] > 35 or self.finish[1] < 1:
+            self.grid_label.setStyleSheet("color: red")
+        else:
+            self.window.close()
 
+    # function to return the user inputs
     def get_endpoints(self):
         return self.start, self.finish, self.algo
-
 
 
     # checkbox1 = QCheckBox('Show Steps', window)
     # checkbox1.setGeometry(45, 145, 100, 30)
     # checkbox1.setStyleSheet("font-weight:bold")
-
-
 
 

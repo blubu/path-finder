@@ -6,7 +6,7 @@ WIDTH = 700
 CELL_DIM = 20
 GRID = WIDTH//CELL_DIM
 BACKGROUND = 'white'
-FRAME = 60
+FRAME = 500
 SLOW_FRAME = 5
 
 # variables

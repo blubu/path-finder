@@ -10,10 +10,10 @@ FRAME = 500
 SLOW_FRAME = 5
 
 # variables
-algo_type = ''
 running = True
-visited = []
+algo_type = ''
 obstacles = []
+visited = []
 row = [0, 1, 0, -1]
 col = [1, 0, -1, 0]
 
@@ -28,7 +28,7 @@ def set_game_window(window):
         pygame.draw.line(window, 'black', (0, x), (WIDTH, x), 2)
 
     pygame.display.update()
-    clock.tick(FRAME)
+    clock.tick(SLOW_FRAME)
 
 
 # set endpoints

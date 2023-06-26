@@ -1,6 +1,6 @@
 
-import sys
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon
 
 
 # window function
@@ -14,6 +14,9 @@ class DialogueWindow:
 
         self.app = QApplication([])
         self.window = QMainWindow()
+        self.icon = QIcon('./images/pathfinder_icon.png')
+        self.window.setWindowIcon(self.icon)
+        self.window.setWindowTitle('  Settings')
 
         # start label
         self.start_label = QLabel('Start Point: ', self.window)
@@ -30,8 +33,14 @@ class DialogueWindow:
         self.grid_label = QLabel('*35 x 35 grid', self.window)
         self.dropdown = QComboBox(self.window)
 
+        # checkbox
+        self.checkbox = QCheckBox('Show Steps', self.window)
+
         # run button
         self.push = QPushButton('Run', self.window)
+
+        # button event
+        self.push.clicked.connect(self.set_endpoints)
 
         # set widgets
         self.set_widgets()
@@ -39,16 +48,13 @@ class DialogueWindow:
         # show window
         self.window.show()
 
-        # button event
-        self.push.clicked.connect(self.set_endpoints)
-
         # app loop
         self.app.exec()
 
     # layout of widgets
     def set_widgets(self):
-        self.window.setGeometry(500, 300, 300, 200)
-        self.window.setFixedSize(300, 200)
+        self.window.setGeometry(500, 300, 300, 220)
+        self.window.setFixedSize(300, 220)
 
         self.start_label.setGeometry(25, 25, 75, 30)
         self.start_label.setStyleSheet("font-weight:bold")
@@ -59,7 +65,7 @@ class DialogueWindow:
         self.algo_label.setGeometry(25, 105, 75, 30)
         self.algo_label.setStyleSheet("font-weight:bold")
 
-        self.grid_label.setGeometry(25, 145, 80, 30)
+        self.grid_label.setGeometry(25, 160, 80, 30)
 
         self.start_x.setPlaceholderText("x1")
         self.start_x.setGeometry(125, 25, 50, 30)
@@ -78,7 +84,11 @@ class DialogueWindow:
         self.dropdown.addItem('Depth First Search')
         self.dropdown.addItem('A* Search')
 
-        self.push.setGeometry(180, 145, 70, 30)
+        self.checkbox.setGeometry(155, 140, 100, 30)
+        self.checkbox.setStyleSheet("font-weight:bold")
+        self.checkbox.setChecked(True)
+
+        self.push.setGeometry(175, 175, 70, 30)
 
     # run function
     def set_endpoints(self):
@@ -112,11 +122,4 @@ class DialogueWindow:
 
     # function to return the user inputs
     def get_endpoints(self):
-        return self.start, self.finish, self.algo
-
-
-    # checkbox1 = QCheckBox('Show Steps', window)
-    # checkbox1.setGeometry(45, 145, 100, 30)
-    # checkbox1.setStyleSheet("font-weight:bold")
-
-
+        return self.start, self.finish, self.algo, self.checkbox.isChecked()

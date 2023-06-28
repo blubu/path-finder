@@ -19,8 +19,8 @@ To run the Morse Code Converter locally, follow these steps:
 1. Launch the program by running the main script.
 2. A user-friendly window will appear, allowing you to set up the start and end points and select the pathfinding algorithm.
 3. Setting up the grid:
-  - Click on a cell to set it as the start or end point.
-  - Drag your mouse across the cells to mark them as obstacles.
+    - Click on a cell to set it as the start or end point.
+    - Drag your mouse across the cells to mark them as obstacles.
 4. Press the Enter key to start the pathfinding algorithm and visualize the process.
 5. If you opted to see the steps, the program will display each step of the algorithm.
 6. Finally, a new window will show the number of steps it took to reach the destination.

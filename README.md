@@ -7,6 +7,13 @@ This is a pathfinding algorithm visualization program built with Python. It allo
 - Option to visualize the step-by-step process of the algorithm or skip to the final path.
 - User can block cells on the grid to create a custom maze.
 - Visual representation of the algorithm's progress and the final path.
+## Screenshots
+![Image](./images/bfs.png)<br>
+*Breadth First Search*<br><br>
+![Image](./images/dfs.png)<br>
+*Deapth First Search*<br><br>
+![Image](./images/astar.png)<br>
+*A-star Search*
 ## Installation
 To run the Morse Code Converter locally, follow these steps:
 1. Clone the repository:<br>
@@ -19,7 +26,7 @@ To run the Morse Code Converter locally, follow these steps:
 1. Launch the program by running the main script.
 2. A user-friendly window will appear, allowing you to set up the start and end points and select the pathfinding algorithm.
 3. Setting up the grid:
-    - Click on a cell to set it as the start or end point.
+  - Click on a cell to set it as the start or end point.
     - Drag your mouse across the cells to mark them as obstacles.
 4. Press the Enter key to start the pathfinding algorithm and visualize the process.
 5. If you opted to see the steps, the program will display each step of the algorithm.

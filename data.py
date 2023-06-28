@@ -9,6 +9,7 @@ BACKGROUND = 'white'
 FRAME = 500
 SLOW_FRAME = 5
 
+
 # variables
 running = True
 algo_type = ''
@@ -33,6 +34,7 @@ def set_game_window(window):
 
 # set endpoints
 def endpoints(window, starts, finals):
+    global obstacles
     # set start point
     rect = pygame.Rect((starts[0] - 1) * CELL_DIM + 2, (starts[1] - 1) * CELL_DIM + 2, CELL_DIM - 2, CELL_DIM - 2)
     pygame.draw.rect(window, 'green', rect)

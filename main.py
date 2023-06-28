@@ -38,11 +38,17 @@ def reset_window():
                            CELL_DIM - 2, CELL_DIM - 2)
         pygame.draw.rect(game_window, 'black', rect)
 
+    pygame.display.update()
+    clock.tick(FRAME)
+
     new_dialog = DialogueWindow()
     start, final, algo_type, show_steps = new_dialog.get_endpoints()
     del new_dialog
 
-    obstacles.append(start)
+    if start not in obstacles:
+        obstacles.append(start)
+    if final in obstacles:
+        obstacles.remove(final)
     endpoints(game_window, start, final)
 
 
@@ -100,7 +106,7 @@ def run_algorithm():
                 colored = new_colored.copy()
 
                 pygame.display.update()
-                clock.tick(FRAME)
+                clock.tick(FRAME/2)
 
             # bfs path
             if found:
@@ -203,7 +209,7 @@ def run_algorithm():
                         pygame.draw.rect(game_window, 'brown', rect)
 
                 pygame.display.update()
-                clock.tick(FRAME)
+                clock.tick(FRAME/2)
 
             if found:
                 for cell in stack[1:]:
@@ -211,7 +217,7 @@ def run_algorithm():
                                        CELL_DIM - 2, CELL_DIM - 2)
                     pygame.draw.rect(game_window, 'yellow', rect)
                     pygame.display.update()
-                    clock.tick(SLOW_FRAME * ((len(path)//10) + 1))
+                    clock.tick(SLOW_FRAME * ((len(stack)//10) + 1))
 
                 AlertWindow(len(stack)-1)
 
@@ -257,7 +263,7 @@ def run_algorithm():
                                        CELL_DIM - 2, CELL_DIM - 2)
                     pygame.draw.rect(game_window, 'yellow', rect)
                     pygame.display.update()
-                    clock.tick(SLOW_FRAME * ((len(path)//10) + 1))
+                    clock.tick(SLOW_FRAME * ((len(stack)//10) + 1))
 
                 AlertWindow(len(stack) - 1)
 
@@ -315,7 +321,7 @@ def run_algorithm():
                             pygame.draw.rect(game_window, 'brown', rect)
 
                 pygame.display.update()
-                clock.tick(FRAME)
+                clock.tick(FRAME/2)
 
                 if found:
                     count = 0
@@ -324,7 +330,7 @@ def run_algorithm():
                                            CELL_DIM - 2, CELL_DIM - 2)
                         pygame.draw.rect(game_window, 'yellow', rect)
                         pygame.display.update()
-                        clock.tick(SLOW_FRAME * 1.5)
+                        clock.tick(SLOW_FRAME)
                         count += 1
                         path = prev[path]
 

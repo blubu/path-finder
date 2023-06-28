@@ -32,6 +32,6 @@ To run the Morse Code Converter locally, follow these steps:
 5. If you opted to see the steps, the program will display each step of the algorithm.
 6. Finally, a new window will show the number of steps it took to reach the destination.
 ## Contributing
-If you would like to contribute to this project, please read the [Contributions Guidelines](https://github.com/blubu/path-finder/blob/main/contribution_guidelines.md) for more information. The guidelines contain areas where improvements are sought, as well as additional features that could be implemented. Feel free to add your own ideas or suggest improvements.For detailed instructions on recreating this project, please refer to the [steps.md](https://github.com/blubu/path-finder/blob/main/steps.md) file.
+If you would like to contribute to this project, please read the [Contribution Guidelines](https://github.com/blubu/path-finder/blob/main/contribution_guidelines.md) for more information. The guidelines contain areas where improvements are sought, as well as additional features that could be implemented. Feel free to add your own ideas or suggest improvements.For detailed instructions on recreating this project, please refer to the [steps.md](https://github.com/blubu/path-finder/blob/main/steps.md) file.
 ## Contact
 If you have any questions, suggestions or need further assistance, feel free to reach out to me at vibhu13github@gmail.com.

@@ -16,7 +16,7 @@ This is a pathfinding algorithm visualization program built with Python. It allo
 ![Image](./images/dfs.png)<br>
 *Depth First Search*<br><br>
 ![Image](./images/astar.png)<br>
-*A-star Search*
+*A** *Search*
 ## Installation
 To run the Morse Code Converter locally, follow these steps:
 1. Clone the repository:<br>

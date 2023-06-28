@@ -1,4 +1,5 @@
 # Path Finding Algorithms
+![Image](./images/path_finder.png)<br>
 This is a pathfinding algorithm visualization program built with Python. It allows users to interactively visualize the process of finding a path between a start and end point on a grid. The program supports various pathfinding algorithms such as Breadth First Search, Depth First Search, and A*.
 ## Features
 - Interactive grid-based interface with a 35x35 grid window using Pygame.
@@ -8,6 +9,8 @@ This is a pathfinding algorithm visualization program built with Python. It allo
 - User can block cells on the grid to create a custom maze.
 - Visual representation of the algorithm's progress and the final path.
 ## Screenshots
+![Image](./images/custom_maze.png)<br>
+*Custom Maze*<br><br>
 ![Image](./images/bfs.png)<br>
 *Breadth First Search*<br><br>
 ![Image](./images/dfs.png)<br>

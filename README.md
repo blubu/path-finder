@@ -14,7 +14,7 @@ This is a pathfinding algorithm visualization program built with Python. It allo
 ![Image](./images/bfs.png)<br>
 *Breadth First Search*<br><br>
 ![Image](./images/dfs.png)<br>
-*Deapth First Search*<br><br>
+*Depth First Search*<br><br>
 ![Image](./images/astar.png)<br>
 *A-star Search*
 ## Installation

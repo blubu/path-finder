@@ -27,27 +27,27 @@ Install the chosen GUI library using the library-specific installation instructi
 **3. Allow User to Select Start and Endpoint:**
 - Create another window for user input.
 - Allow the user to select the start and endpoint within the grid.
-- 
+
 **4. Allow User to Create a Maze on the Grid:**
 - Implement functionality to let the user draw obstacles or walls on the grid.
 - Update the grid accordingly to represent the maze.
 
 **5. Code the Pathfinding Algorithm:**
-- Choose a pathfinding algorithm to implement (e.g., A*, Dijkstra's algorithm).
+- Choose a pathfinding algorithm to implement (e.g., BFS, A*, Dijkstra's algorithm).
 - Write the code for the chosen algorithm.
 - Test the algorithm's functionality.
 
 **6. Visualize the Steps of the Algorithm:**
 - Implement code to visualize the steps followed by the algorithm.
 - Update the grid in each step to reflect the algorithm's progress.
-- 
+
 **7. Show the Final Solution Path:**
 - Implement code to display the final solution path on the grid.
 - Highlight the cells or draw a line to represent the path.
 
 **8. Allow Selection of Different Algorithms:**
--Provide options for the user to select different pathfinding algorithms.
--Modify the code to accommodate the selected algorithm.
+- Provide options for the user to select different pathfinding algorithms.
+- Modify the code to accommodate the selected algorithm.
 
 **9. Provide Option to Show/Hide Steps:**
 - Implement functionality to allow the user to choose whether to display the algorithm's steps or not.

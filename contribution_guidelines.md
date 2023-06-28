@@ -1,4 +1,4 @@
-# Contributing to Morse Code Converter
+# Contributing to Path Finder
 Thank you for considering contributing to the Path Finder project! We welcome contributions from the community to help improve and expand this project. 
 This guide outlines the contribution process and provides some areas where contributions are sought.
 ## Ways to Contribute

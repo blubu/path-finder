@@ -80,7 +80,7 @@ class DialogueWindow:
         self.finish_y.setGeometry(200, 65, 50, 30)
 
         self.dropdown.setGeometry(125, 105, 125, 30)
-        self.dropdown.addItem('Width First Search')
+        self.dropdown.addItem('Breadth First Search')
         self.dropdown.addItem('Depth First Search')
         self.dropdown.addItem('A* Search')
 

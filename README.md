@@ -18,7 +18,7 @@ This is a pathfinding algorithm visualization program built with Python. It allo
 ![Image](./images/astar.png)<br>
 *A** *Search*
 ## Installation
-To run the Morse Code Converter locally, follow these steps:
+To run the Path Finder locally, follow these steps:
 1. Clone the repository:<br>
    ```git clone [repository_url]```
 3. Install the required dependencies:<br>
